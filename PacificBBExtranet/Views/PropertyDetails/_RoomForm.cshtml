@@ -1,0 +1,58 @@
+﻿@model PacificBBExtranet.Services.Models.ResortModels.ResortRoomModel
+
+<div id="id_roomForm">
+
+    @if (string.IsNullOrEmpty(Model.Type))
+    {
+        <h4>New Room</h4>
+    }
+    else
+    {
+        <h4>Editing room @Model.Name</h4>
+    }
+    @{ var action = string.IsNullOrEmpty(Model.Type) ? "RoomNew" : "RoomEdit";}
+    @using (Html.UcBeginForm(action, "PropertyDetails", "id_roomForm"))
+    {
+        @Html.UcTextBoxFor(x => x.Name, "Name", 3)
+        @Html.UcTextBoxFor(x => x.Type, "Type", 3)
+        @Html.UcTextAreaFor(x => x.Description, "Description", 3)
+
+        @Html.UcNumericInputFor(x => x.PerNightRate, "Night Rate", 3)
+        @*@Html.UcNumericInputFor(x => x.PerPersonRate, "Person Rate", 3)*@
+        @Html.UcTextAreaFor(x => x.Features, "Features", 3)
+        @Html.UcTextBoxFor(x => x.Facilities, "Facilities", 3)
+
+        @Html.UcFormSubmitButtons()
+    }
+
+    
+</div>
+
+@if (ViewBag != null && ViewBag.Success == true)
+{
+    @*@Html.UcScriptContentLoader(Url.Action("RoomList", "PropertyDetails", null)
+        ,containerId:"id_roomListContainer")*@
+
+
+    <div class="container">
+        <div class="alert alert-success">
+            <strong>Saved successfully!</strong>
+        </div>
+    </div>
+        <script type="text/javascript">
+
+            $.get("/PropertyDetails/RoomList", function (response) {
+                $("#id_roomListContainer").html(response);
+            })
+            setTimeout(function() {
+                $("#id_roomForm .alert-success").fadeOut("slow");
+            },
+          3000);
+
+
+        </script>
+
+
+
+}
+

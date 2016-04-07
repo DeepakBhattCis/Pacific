@@ -1,0 +1,31 @@
+﻿<div id="mainForm">   
+
+    <table>    
+        <tr>
+            <th> First name </th>
+            <th> Last name </th>
+            <th> Email </th>
+            <th> Phone </th>
+            <th>&nbsp;</th>
+        </tr>
+       
+        <tr>
+            <td>
+                {{view Ember.TextField valueBinding="controller.currentCustomer.firstName" class="form-control input-sm"}}
+            </td>
+            <td>
+                {{view Ember.TextField valueBinding="controller.currentCustomer.lastName"}}
+            </td>
+            <td>
+                {{view Ember.TextField valueBinding="controller.currentCustomer.email"}}
+            </td>
+            <td>
+                {{view Ember.TextField valueBinding="controller.currentCustomer.phone"}}
+            </td>
+            <td align="center">
+                <button id="submit" {{action "save" on="click" target="view" }} class="btn btn-success">Save</button>
+            </td>
+        </tr>      
+    </table>
+
+</div>

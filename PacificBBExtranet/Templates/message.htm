@@ -1,0 +1,9 @@
+﻿{{#unless controller.currentResult.errorCode}}
+<div id='message'>
+    {{controller.currentResult.errorMessage}} &nbsp;
+</div>
+{{else}}
+<div id='error'>
+    {{controller.currentResult.errorMessage}} &nbsp;
+</div>
+{{/unless}}

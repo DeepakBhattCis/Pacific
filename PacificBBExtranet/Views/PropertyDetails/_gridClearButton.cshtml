@@ -1,0 +1,14 @@
+﻿
+
+<div class="form-group">
+    <label>Clear dates</label>
+    <input type="button" class="input-group btn btn-sm btn-info" name="newValue" value="Clear" id="clearButton" />
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#clearButton").on("click", function () {
+            $("#id_grid-component .td-selected").removeClass("td-selected");
+        })
+    })
+</script>

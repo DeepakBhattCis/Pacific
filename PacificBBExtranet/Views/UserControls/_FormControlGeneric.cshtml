@@ -1,0 +1,18 @@
+﻿@model PacificBBExtranet.Web.UserControls.FormControlGenericModel
+
+<div class="form-group">
+
+    @if(Model.LabelColDimension > 0)
+    {
+        <label for="@Model.ControlName" class="@Html.StyleCol(Model.LabelColDimension) control-label">@Model.Label</label>
+    }
+
+    <div class="@Html.StyleCol(12 - Model.LabelColDimension) input-group">
+
+        @Model.ControlFor
+
+        @Model.ValidationMessageFor
+
+    </div>
+
+</div>

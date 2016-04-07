@@ -1,0 +1,129 @@
+﻿@model Dictionary<DateTime, decimal>
+
+@{
+    var daysList = new List<string>() { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+}
+<div id="id_grid-component">
+    <table unselectable="on" class="table table-condensed table-bordered gridComponent gray-bg">
+        <thead>
+            <tr>
+                <th></th>
+                @for (int i = 0; i <= 4; i++)
+            {
+                foreach (var day in daysList)
+                {
+                    if (day == "Sat" || day == "Sun")
+                    {
+                            <th class="weekend">@day</th>
+                        }
+                        else
+                        {
+                            <th>@day</th>
+                        }
+                    }
+                }
+                <th> Mon</th>
+                <th>Tue</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var months = Model.Select(x => x.Key.Month).Distinct();
+                var today = DateTime.Today;
+                 }
+            @foreach (int month in months)
+            {
+                var currentMonthDays = Model.Where(x => x.Key.Month == month).ToList();
+                var startAtDayOfWeek = Html.GetDayOfWeek(currentMonthDays.First().Key);
+                int currentDayNumber = 1;
+                int rowCellsToAddAtEnd = 36-(startAtDayOfWeek-1)- currentMonthDays.Count();
+                <tr>
+                    <th>
+                        @{ var MonthInfo = currentMonthDays.First().Key.ToString("MMM yy");
+                            MonthInfo = MonthInfo[0].ToString().ToUpper() + MonthInfo.Substring(1);
+                        }
+                        @MonthInfo
+                    </th>
+                    @for (int i = 1; i <= 31; i++)
+                    {
+                        if (currentDayNumber >= startAtDayOfWeek)
+                        {
+                            foreach (var day in currentMonthDays)
+                            {
+                                if (month == today.Month && day.Key.Day < today.Day)
+                                {/*days before today cannot be edited*/
+                                    <td class="gray-bg"></td>
+                                }
+                                else
+                                {
+                                    @node(day);
+                                }
+
+                            }
+                            i = 31;
+                        }
+                        else
+                        {
+                            <td class="gray-bg"></td>
+                        }
+                        currentDayNumber++;
+                    }
+
+                    @for (int j = 0; j <= rowCellsToAddAtEnd; j++)
+                    {
+                        <td class="gray-bg"></td>
+                    }
+                </tr>
+                            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$("#id_grid-component td.available").on("click",
+        //    function (e) {
+        //        $(this).toggleClass("td.ui-selected");
+        //    })
+
+        $("#id_grid-component > table").selectable({
+                filter: "td.available",
+                start: function (event, ui) {
+                    //$(this).toggleClass("td-selected");
+                    //$("td.ui-selected").removeClass("ui-selected");
+                },
+                stop: function (event, ui) {
+                    var selected = $("td.ui-selected");
+                    if (selected.hasClass("belegt"))
+                        selected.removeClass("ui-selected");
+                },
+                selecting: function (event, ui) {
+                    $(this).addClass("ui-selected");
+                }
+            });
+
+
+        //$("#id_grid-component > table tbody").selectable();
+    })
+</script>
+
+@helper node(KeyValuePair<DateTime,decimal> day) {
+    var classes = "";
+    int dayofWeek = Html.GetDayOfWeek(day.Key);
+    if (dayofWeek > 5)
+    {
+        classes += " green-bg ";
+    }
+    else
+    {
+        classes += " white-bg ";
+    }
+
+    <td class="@classes available" data-date="@day.Key.ToString("MM-dd-yyyy")">
+        <div class="td-date">
+            <span style="display:block;">@day.Key.Day</span>
+        </div>
+        <div class="td-value">
+            <span style="display:block;">@day.Value</span>
+        </div>
+    </td>
+
+}

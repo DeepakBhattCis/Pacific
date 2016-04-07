@@ -1,0 +1,23 @@
+﻿@model List<PacificBBExtranet.Services.Models.XMLMessageHistoryModel>
+@{
+    ViewBag.Title = "API Messages";
+}
+
+<h2>API Messages History</h2>
+
+@foreach (var message in Model)
+{
+    <div style="padding:10px;">
+        <div style="clear:both;">
+            <label>@String.Format("{0:f}", message.Date)</label>
+        </div>
+        <div class="@Html.StyleCol(6)" style="max-height: 376px;overflow-y: auto;">
+            <pre>@message.Request</pre>
+        </div>
+        <div class="@Html.StyleCol(6)" style="max-height: 376px;overflow-y: auto;">
+            <pre>@message.Response</pre>
+        </div>
+    </div>
+}
+
+

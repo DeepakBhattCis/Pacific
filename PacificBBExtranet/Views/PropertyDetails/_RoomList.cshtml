@@ -1,0 +1,34 @@
+﻿@using PacificBBExtranet.Services.Models.ResortModels
+@model List<ResortRoomModel>
+
+@{ 
+    var grid = new WebGrid(
+    Model,
+    canPage: false);
+}
+<div>
+    <h4 class="pull-left">Room List</h4>
+    @Html.UcActionLink("New", "RoomNew", "PropertyDetails", null,
+    new { @class = "btn btn-sm btn-info pull-right" }, "id_roomFormContainer", true)
+</div>
+<div style="max-height: 596px;overflow-y: auto;clear:both;">
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <div>
+            @grid.GetHtml(
+            tableStyle: StyleExtensions.StyleTable(),
+            columns: grid.Columns(
+                 grid.Column(header: "Name", format: (item) => item.Name),
+                 //grid.Column(header: "Type", format: (item) => item.Type),
+                 grid.Column(header: "Features", format: (item) => item.Features),
+                 grid.Column(header: "Facilities", format: (item) => item.Facilities),
+                 grid.Column(header: "", format: (item) => Html.RoomListActions((ResortRoomModel)item.Value))
+             ))
+        </div>
+    }
+    else
+    {
+        <div class="box-container danger">No Rooms Found.</div>
+    }
+</div>

@@ -1,0 +1,145 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top:20px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.tab-content{
+    padding-top: 1.5%;
+}
+
+
+.shadow {
+     border:2px solid #fff; 
+     box-shadow: 10px 10px 5px #ccc; 
+     -moz-box-shadow: 10px 10px 5px #ccc; 
+     -webkit-box-shadow: 10px 10px 5px #ccc; 
+     -khtml-box-shadow: 10px 10px 5px #ccc; }
+
+
+.field-validation-error{
+    display: block;
+    color: #F55E5E;
+    font-size: 12px;
+}
+
+.resortLogo{
+    max-width:300px;
+    width:100%;
+}
+
+.progress {
+    max-width: 300px;
+    margin-top: 20px;
+}
+
+.body-content{
+    margin-right: 5% !important;
+    margin-left: 2% !important;
+    width: 100% !important;
+    max-width: 96%;
+}
+
+.green-bg{
+    background-color:#D0FEAC;
+}
+
+.gray-bg{
+    /*background-color:#E6E6E6 !important;*/
+    background-color:#D0CECE !important;
+}
+
+.white-bg{
+    background-color:#6BC1D5;
+
+}
+
+.gridComponent td{
+    text-align:right !important;
+    padding:0px !important;
+}
+
+.gridComponent .td-value{
+    padding-right: 4px;padding-top: 6px;
+}
+
+.gridComponent .td-date{
+    border-bottom: 1px solid #dddddd;padding-right: 4px;color: #979797;font-size: 12px;
+}
+
+.gridComponent th {
+    background-color:white ;
+}
+
+.gridComponent
+{
+    margin-top:16px;
+ -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+
+}
+.form-control{
+    max-width: 300px !important;
+}
+
+.weekend{
+    background-color:#AFF776 !important;
+}
+
+
+.td-selected , .ui-selected {
+    background-color: rgba(74, 132, 160, 0.41) !important;
+}
+
+#newValue{
+    width:140px;
+}
+
+.td-date{
+    background-color:#E6E6E6;
+}
+
+.custom.nav > li > a {
+    padding: 2px 11px;
+}
+
+.nav-selected{
+    color: #FBFF00 !important;
+}
+
+.white{
+    color: white !important;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 96% !important;
+    }
+}
+
+.layout.nav  > li > a:hover{
+    color: #FBFF00 !important;
+}
+
+.light-red-bg{
+    background-color:#F7A7A7 !important;
+}

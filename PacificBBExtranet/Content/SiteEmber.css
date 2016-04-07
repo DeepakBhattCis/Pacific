@@ -1,0 +1,53 @@
+
+
+/* `Ember.js
+----------------------------------------------------------------------------------------------------*/
+
+#app
+{
+	font-size: 13px;
+	margin-left: 10px;
+}
+
+#app h3
+{
+	font-family: 'Cinzel' , Serif;
+	font-size: 24px;
+}
+
+#message
+{
+	color: #009900;
+	line-height: 30px;
+}
+
+#error
+{
+	color: #dd0000;
+	line-height: 30px;
+}
+
+#mainForm
+{
+	line-height: 20px;
+}
+
+
+#footer
+{
+	font-size: 12px;
+	bottom: 0;
+	right: 0;
+	margin-right: 5px;
+	margin-bottom: 2px;
+	position: absolute;
+	font-variant: small-caps;
+	font-style: italic;
+	font-family: 'Cinzel' , Serif;
+}
+
+#customerListHeader
+{
+	font-weight: bold;
+	font-size: large;
+}

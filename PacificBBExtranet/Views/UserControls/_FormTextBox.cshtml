@@ -1,0 +1,26 @@
+﻿@model PacificBBExtranet.Web.UserControls.FormTextBoxModel
+
+<div class="form-group">
+
+    <label for="@Model.ControlName" class="@Html.StyleCol(Model.LabelColDimension) control-label">@Model.Label</label>
+
+    <div class="@Html.StyleCol(12 - Model.LabelColDimension) input-group">
+
+        @if (!string.IsNullOrWhiteSpace(Model.InputGroupPrepend))
+        {
+            <span class="input-group-addon input-sm">@MvcHtmlString.Create(Model.InputGroupPrepend)</span>
+        }
+
+        @Model.ControlFor
+
+        @if (!string.IsNullOrWhiteSpace(Model.InputGroupAppend))
+        {
+            <span class="input-group-addon input-sm">@MvcHtmlString.Create(Model.InputGroupAppend)</span>
+        }
+        @if(Model.ShowValidationMessageBelow)
+        {
+            @Model.ValidationMessageFor
+        }
+
+    </div>
+</div>

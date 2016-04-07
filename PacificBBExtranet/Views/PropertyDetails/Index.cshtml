@@ -1,0 +1,55 @@
+﻿@model PacificBBExtranet.Services.Models.ResortModels.ResortModel
+@{
+    ViewBag.Title = "Property Details";
+}
+<ul class="custom nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#prop_desc">Description</a></li>
+    <li><a data-toggle="tab" href="#prop_images">Images</a></li>
+    <li><a data-toggle="tab" href="#prop_rates" id="tab_availability">Availability & Rates</a></li>
+    <li><a data-toggle="tab" href="#prop_rooms">Rooms</a></li>
+    <li><a data-toggle="tab" href="#prop_addons">Add-Ons</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="prop_desc" class="tab-pane fade in active">
+        <div class="row">
+            <div class="@Html.StyleCol(small:12, mid:6,large:6)" id="id_resortFormContainer">
+                @Html.Partial("_ResortEdit", Model)
+            </div>
+            <div class="@Html.StyleCol(small:12, mid:6,large:6)">
+                @Html.UcSingleImageUpload(actionUrl: "/PropertyDetails/UploadResortLogo", currentPhotoUrl:Model.LogoUrl
+               ,defaultPhotoUrl:WebConstants.DefaultLogoUrl)
+            </div>
+        </div>
+    </div>
+    <div id="prop_images" class="tab-pane fade">
+        @Html.UcScriptContentLoader(Url.Action("ResortImages","PropertyDetails",null),
+                containerId: "prop_images",setdelay:1)
+
+    </div>
+    <div id="prop_rates" class="tab-pane fade">
+
+    </div>
+    <div id="prop_rooms" class="tab-pane fade">
+        @Html.Partial("~/Views/PropertyDetails/_RoomsTab.cshtml")
+    </div>
+    <div id="prop_addons" class="tab-pane fade">
+        @Html.Partial("~/Views/PropertyDetails/_AddonsTab.cshtml")
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tab_availability").on("click", function () {
+            $.get("/PropertyDetails/AvailabilityAndRatesTab", null, function (response) {
+                $("#prop_rates").html(response);
+            })
+        })
+
+        $("nav-selected").removeClass("nav-selected");
+        $("nav-selected").addClass("white");
+
+        $("#id_layout_propertydetails > a").removeClass("white");
+        $("#id_layout_propertydetails > a").addClass("nav-selected");
+    })
+</script>

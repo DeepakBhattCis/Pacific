@@ -1,0 +1,33 @@
+﻿@using PacificBBExtranet.Services.Models.ResortModels
+@model List<AddOnModel>
+
+@{ 
+    var grid = new WebGrid(
+    Model,
+    canPage: false);
+}
+<div>
+    <h4 class="pull-left">Addon List</h4>
+    @Html.UcActionLink("New", "AddonNew", "PropertyDetails", null,
+    new { @class = "btn btn-sm btn-info pull-right" }, "id_addonFormContainer", true)
+</div>
+<div style="max-height: 596px;overflow-y: auto;clear:both;">
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <div>
+            @grid.GetHtml(
+            tableStyle: StyleExtensions.StyleTable(),
+            columns: grid.Columns(
+                 grid.Column(header: "Name", format: (item) => item.AddonName),
+                 grid.Column(header: "Description", format: (item) => item.Description),
+                 grid.Column(header: "Price", format: (item) => item.Price),
+                 grid.Column(header: "", format: (item) => Html.AddonListActions((AddOnModel)item.Value))
+             ))
+        </div>
+    }
+    else
+    {
+        <div class="box-container danger">No Rooms Found.</div>
+    }
+</div>

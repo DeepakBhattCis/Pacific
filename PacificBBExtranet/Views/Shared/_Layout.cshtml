@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery.fileupload.js"></script>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Pacificbedbank Resort Extranet", "Index", "PropertyDetails", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="layout nav navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li id="id_layout_propertydetails">
+                            @Html.ActionLink("Property Details", "Index", "PropertyDetails",null, new { @class= "white" })</li>
+                        @*<li>@Html.ActionLink("Distribution", "Index", "Home")</li>*@
+                        <li id="id_layout_deals">@Html.ActionLink("Channel Manager-Rate Plans", "Index", "Deals", null,new { @class = "white" })</li>
+                        
+                        <li id="">@Html.ActionLink("Synch", "Index", "Synch", null, new { @class = "white" })</li>
+                        @*<li id="id_layout_remap" ><a  data-dialog-url="/Synch/HotelRemap" data-dialog-title="Result" data-dialog-percent="50" class="white" style="cursor:pointer;">Map</a></li>*@
+                        <li id="">@Html.ActionLink("Api Messages", "APIMessages", "Home", null, new { @class = "white" })</li>
+                        <li id="">@Html.ActionLink("Reservations", "GetReservations", "Synch", null, new { @class = "white" })</li>
+                        <li id="">@Html.ActionLink("Customers", "GetCustomers", "Home", null, new { @class = "white" })</li>
+						  }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+        </footer>
+    </div>
+
+    @* global hidden elements *@
+    <div id="@ScriptHelper.MarkupIDs.AjaxLoadingOverlay" style="display: none;">
+        <div id="ajaxLoadingInner" style="max-width: 23%;margin: auto;clear:both;display:block;">   
+            <img id="imgAjaxLoading" class="ajax-loading-inner"
+                 src="@Url.Content("~/Content/images/loader-arrow.gif")" />
+            @*<div class="ajax-loading-inner-text" style="margin-left: 39%;">Loading...</div>*@
+        </div>
+    </div>
+    <img id="imgAjaxLoadingMini" style="display:none" src="@Url.Content("~/Content/images/spinner-mini.gif")" />
+
+
+
+    @Scripts.Render("~/bundles/core")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+<style>
+
+
+    .navbar-brand{
+        color:white !important;
+    }
+    .ajax-loading-inner{
+        margin-left:40%;
+    }
+    .ajax-loading-inner img{
+        margin-left:4%;
+    }
+
+    .overlay{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      background-color: rgba(0,0,0,0.5); /*dim the background*/
+    }
+</style>
+
+<div id="response" class="hidden"></div>
+<div class="overlay hidden" id="overlay">
+    <span style="margin:auto;color:white;font-size:20px;font-weight:bold;position:absolute;left:49%;top:50%;">Loading</span>
+</div>
+@*<script>
+    $(document).ready(function () {
+        $("#id_layout_remap").on("click", function () {
+            //$("#overlay").removeClass("hidden");
+            //DialogHelper.Load("#id_layout_remap")
+            //$("#overlay").addClass("hidden");
+            //$.get("/Synch/HotelRemap", null, function (response) {
+            //    $("#response").html(response);
+            //    $("#overlay").addClass("hidden");
+            //})
+        })
+    })
+</script>*@

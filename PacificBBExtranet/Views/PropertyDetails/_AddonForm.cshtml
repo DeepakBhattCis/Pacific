@@ -1,0 +1,48 @@
+﻿@using PacificBBExtranet.Services.Models.ResortModels
+@model AddOnModel
+
+<div id="id_addonForm">
+    @if (Model.AddonID.HasValue)
+    {
+        <h4>Editing @Model.AddonName add-on</h4>
+    }
+    else
+    {
+        <h4>New Add-On</h4>
+    }
+    @using (Html.UcBeginForm(Model.AddonID.HasValue ? "AddonEdit" : "AddonNew", "PropertyDetails", "id_addonForm"))
+    {
+        @Html.HiddenFor(x => x.AddonID)
+        @Html.UcTextBoxFor(x=>x.AddonName,"Name",3)
+        @Html.UcTextAreaFor(x => x.Description, "Description", 3)
+        @Html.UcTextBoxFor(x => x.Price, "Price", 3)
+
+        @Html.UcFormSubmitButtons()
+    }
+</div>
+
+
+@if (ViewBag != null && ViewBag.Success == true)
+{
+    <div class="container">
+        <div class="alert alert-success">
+            <strong>Saved successfully!</strong>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+            $.get("/PropertyDetails/AddonList", function (response) {
+                $("#id_addonListContainer").html(response);
+            })
+            setTimeout(function() {
+                $("#id_addonForm .alert-success").fadeOut("slow");
+            },
+          3000);
+
+
+    </script>
+
+
+
+}
+

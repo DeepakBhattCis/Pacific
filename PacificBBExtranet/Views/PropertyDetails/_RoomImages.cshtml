@@ -1,0 +1,26 @@
+﻿@using PacificBBExtranet.Services.Models.ResortModels
+@model List<ResortRoomImageModel>
+
+<h4>@ViewBag.RoomName room images</h4>
+<div class="row">
+    @{ var resortImagesAction = "/PropertyDetails/UploadRoomImage?imageID=";}
+
+    <div style="float:left">
+        @Html.UcSingleImageUpload(actionUrl: resortImagesAction + Model[0].ResortRoomImageID,
+                         currentPhotoUrl: Model[0].ImageUrl, additionalClasses: Html.StyleCol(small: 12, mid: 6, large: 6).ToString(), hideInput: true)
+
+        @Html.UcSingleImageUpload(actionUrl: resortImagesAction + Model[1].ResortRoomImageID,
+                         currentPhotoUrl: Model[1].ImageUrl, additionalClasses: Html.StyleCol(small: 12, mid: 6, large: 6).ToString(), hideInput: true)
+    </div>
+    <div>
+        @Html.UcSingleImageUpload(actionUrl: resortImagesAction + Model[2].ResortRoomImageID,
+                         currentPhotoUrl: Model[2].ImageUrl, additionalClasses: Html.StyleCol(small: 12, mid: 6, large: 6).ToString(), hideInput: true)
+
+        @Html.UcSingleImageUpload(actionUrl: resortImagesAction + Model[3].ResortRoomImageID,
+                         currentPhotoUrl: Model[3].ImageUrl, additionalClasses: Html.StyleCol(small: 12, mid: 6, large: 6).ToString(), hideInput: true)
+    </div>
+        
+</div>
+
+
+

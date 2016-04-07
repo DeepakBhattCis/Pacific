@@ -1,0 +1,26 @@
+﻿@model PacificBBExtranet.Web.UserControls.FormSubmitButton
+
+<div class="row" style="text-align:center;margin-top:1%;clear:both;">
+   
+    @if(Model.IsAuthorized)
+    {
+        if(Model.ExcludeSaveButton == false)
+        {
+            <input type="submit" name="submit" class="btn btn-success" value="@Model.SaveButtonText" />
+        }
+        if(Model.ExludeApplyButton == false)
+        {
+            <input type="submit" name="Apply" class="btn btn-success" value="@Model.ApplyButtonText" />
+        }
+    } 
+    else 
+    {
+        <span class="label-danger">Not Authorized To Submit</span>
+    }
+
+    @if (Model.CancelButton != null)
+    {
+        @Model.CancelButton
+    }
+
+</div>

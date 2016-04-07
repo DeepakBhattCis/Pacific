@@ -1,0 +1,67 @@
+﻿@model PacificBBExtranet.Web.UserControls.ScriptContentLoaderModel
+
+@{
+    string filterIdSelector = "";
+}
+
+@if (Model.FilterControlIDs != null && Model.FilterControlIDs.Length > 0)
+{
+    filterIdSelector = string.Join(", ", Model.FilterControlIDs.Select(x => "#" + x));
+}
+
+<script type="text/javascript">
+    $(function () {
+
+        var actionUri = '@Html.Raw(Model.ActionUri)';
+
+        @if (filterIdSelector != "")
+        {
+            @: actionUri += (actionUri.indexOf('?') > -1 ? '&' : '?') + 'indirectRefresh=1' + getFilterUriQuery($('@filterIdSelector'));
+                }
+
+        function getFilterUriQuery(jqSourceElements) {
+
+            var query = "";
+
+            jqSourceElements.each(function () {
+
+                var filterElement = $(this);
+
+                var paramName = filterElement.data('filter-param');
+                if (!paramName || paramName == '') {
+                    paramName = filterElement.attr('id');
+                }
+
+                query += '&' + paramName + '=' + encodeURIComponent(FormHelper.GetInputVal(filterElement));
+
+            });
+
+            return query;
+        }
+
+        @*
+        @if (Model.ContainerDataAttribute != null && Model.ContainerDataAttribute.Length > 0)
+        {
+             @: var container = $('#@Model.ContainerId');
+
+              @: if (container.length > 0)
+              @: {
+                  @: var resfreshUrl = container.data('@Model.ContainerDataAttribute');
+                  @: actionUri += '&' + resfreshUrl;
+              @: };
+        }*@
+
+        setTimeout(function () {
+
+                @if(Model.LoadingTargetMini)
+                {
+                    @: AjaxHelper.LoadContainerMini(actionUri, '#@Model.ContainerId');
+                            }
+                else
+                {
+                    @: AjaxHelper.LoadContainer(actionUri, '#@Model.ContainerId', '@Model.LoadingText');
+                }      
+        }, @Model.Delay * 1000);
+    });
+
+</script>

@@ -1,0 +1,18 @@
+﻿@using PacificBBExtranet.Services.Models.ResortModels
+
+
+
+<div>
+    <div class="@Html.StyleCol(small:12,mid:6, large:6)" id="id_roomListContainer">
+        
+    </div>
+    <div class="@Html.StyleCol(small:12,mid:6, large:6)" id="id_roomFormContainer">
+        @Html.Partial("~/Views/PropertyDetails/_RoomForm.cshtml", new ResortRoomModel())
+    </div>
+</div>
+
+@Html.UcScriptContentLoader(Url.Action("RoomList","PropertyDetails", null), "id_roomListContainer",setdelay:1)
+
+
+
+

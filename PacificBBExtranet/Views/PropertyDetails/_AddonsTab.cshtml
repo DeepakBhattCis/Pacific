@@ -1,0 +1,18 @@
+﻿@using PacificBBExtranet.Services.Models.ResortModels
+
+<div>
+    
+    <div class="@Html.StyleCol(small:12,mid:6, large:6)" id="id_addonListContainer">
+
+    </div>
+    <div class="@Html.StyleCol(small:12,mid:5, large:5)" id="id_addonFormContainer">
+        @Html.Partial("~/Views/PropertyDetails/_AddonForm.cshtml", new AddOnModel())
+    </div>
+    <div class="@Html.StyleCol(small: 12, mid: 1, large: 1)"></div>
+</div>
+
+@Html.UcScriptContentLoader(Url.Action("AddonList", "PropertyDetails", null),
+    "id_addonListContainer", setdelay: 1)
+
+
+

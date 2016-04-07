@@ -1,0 +1,109 @@
+﻿@model PacificBBExtranet.Services.Models.ResortModels.AvailabilityAndRatesTabModel
+
+<div>
+    <div class="pull-left" style="width:500px;">
+        <label style="margin-left:3%;">Room Type</label>
+        @Html.UcDropDownListFor(x => x.selectedRoomType, "Room Type", 0, Model.RoomTypeList)
+    </div>
+
+    <div class="pull-right" style="width:30%;">
+        <div class="@Html.StyleCol(4)">
+            @*@Html.Partial("_GridClearButton")*@
+        </div>
+        <div class="form-group @Html.StyleCol(8) row">
+            <div class="@Html.StyleCol(9)">
+                <label>Change value to</label>
+                <input class="input-group" id="newValue" />
+            </div>
+            <div class="@Html.StyleCol(3)" style="padding-top: 5%;">
+                <input type="button" style="margin-top:39%;" class="btn btn-sm btn-info pull-right input-group" id="saveNewValuesButton" value="Save" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul class="custom nav nav-tabs" id="id_roomAvAndRatesTabs" style="clear:both">
+    <li class="active"><a data-toggle="tab" href="#av_availability" id="tab_av_availability">Availability</a></li>
+    <li><a data-toggle="tab" href="#av_rates" id="tab_av_rates">Rates</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="av_panel" class="tab-pane fade in active">
+
+    </div>
+</div>
+
+    
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tab_av_availability").on("click", function () {
+            AjaxHelper.SetLoadingOnTarget("#av_panel",@ScriptHelper.MarkupIDs.AjaxLoadingOverlay);
+            if ($("#selectedRoomType").val() != "") {
+                $.get("/PropertyDetails/AvailabilityGrid", { roomType: $("#selectedRoomType").val() }, function (response) {
+                    
+                    $("#av_panel").html(response);
+                })
+            }else{
+                $("#av_panel").html("<h5>Please select a room type</h5>");
+            }
+        })
+        $("#tab_av_availability").trigger("click");
+    })
+
+    $(document).ready(function () {
+        $("#tab_av_rates").on("click", function () {
+            AjaxHelper.SetLoadingOnTarget("#av_panel",@ScriptHelper.MarkupIDs.AjaxLoadingOverlay);
+            if ($("#selectedRoomType").val() != "") {
+                $.get("/PropertyDetails/RatesGrid", { roomType: $("#selectedRoomType").val() }, function (response) {
+                    $("#av_panel").html(response);
+                })
+            }else{
+                $("#av_panel").html("<h5>Please select a room type</h5>");
+            }
+        })
+    })
+</script>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#selectedRoomType").on("change", function () {
+                $("#id_roomAvAndRatesTabs li.active").children().first().trigger("click");
+            })
+        })
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#saveNewValuesButton").click("click", function () {
+            var value = $("#newValue").val()
+            if (Math.floor(value) == value && $.isNumeric(value)) {
+                $("#id_grid-component td.ui-selected > .td-value > span").text(value);
+                $("#clearButton").trigger("click");
+            }
+            $("#newValue").val("");
+            var eArray = $("#id_grid-component td.ui-selected");
+            var dateDic = [];
+
+            $.each(eArray, function (i, e) {
+                var dateObj = {
+                    date:$(e).data("date"),
+                    value: $(e).find(".td-value > span").text()
+                };
+                dateDic.push(dateObj);
+            });
+
+            var AvailabilityOrRates = "";
+            if ($("#tab_av_availability").parent().hasClass("active")) {
+                AvailabilityOrRates = "availability";
+            }
+            if ($("#tab_av_rates").parent().hasClass("active"))
+            {
+                AvailabilityOrRates = "rates";
+            }
+            $.post("/PropertyDetails/UpdateRoomDateValues", { datesAvailability: dateDic, roomType: $("#selectedRoomType").val(), availabilityORRates: AvailabilityOrRates })
+            eArray.removeClass("ui-selected");
+        })
+    })
+</script>
+

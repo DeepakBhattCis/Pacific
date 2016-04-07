@@ -1,0 +1,36 @@
+﻿@model PacificBBExtranet.Services.Models.ResortModels.ResortModel
+@using PacificBBExtranet.Web.Helpers
+
+
+@if (ViewBag.Success == true)
+{
+    <div class="container">
+        <div class="alert alert-success">
+            <strong>Saved successfully!</strong>
+        </div>
+    </div>
+    <script type="text/javascript">
+            setTimeout(function() {
+                $("#id_resortFormContainer .alert-success").fadeOut("slow");
+            },
+          3000);
+    </script>
+
+}
+
+@using (Html.UcBeginForm(actionName: "ResortEdit", controllerName: "PropertyDetails", updateTargetId: "id_resortFormContainer"))
+{
+    @Html.UcTextBoxFor(x => x.Name, "Resort Name", 3)
+    @Html.UcTextBoxFor(x => x.Address, "Address", 3)
+    @Html.UcTextAreaFor(x => x.Description, "Description", 3)
+    @Html.UcTextBoxFor(x => x.Features, "Features", 3)
+    @Html.UcNumericInputFor(x=>x.NumberOfRooms,"Number of Rooms",3)
+
+    @Html.UcFormSubmitButtons()
+}
+
+
+
+
+
+
